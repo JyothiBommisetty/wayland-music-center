@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+set -e
+
+MODE="${1:-visualizer}"
+
+start_spotify() {
+    if ! playerctl -l 2>/dev/null | grep -qx spotify; then
+        flatpak run com.spotify.Client >/dev/null 2>&1 &
+        sleep 5
+    fi
+}
+
+stop_overlays() {
+    pkill -x wshowlyrics 2>/dev/null || true
+    pkill -x kwybars 2>/dev/null || true
+}
+
+case "$MODE" in
+    lyrics)
+        start_spotify
+        stop_overlays
+        sleep 1
+        wshowlyrics -a bottom -m 90 -F Sans Bold 28 >/dev/null 2>&1 &
+        ;;
+
+    visualizer)
+        start_spotify
+        stop_overlays
+        sleep 1
+        wshowlyrics -a bottom -m 90 -F Sans Bold 28 >/dev/null 2>&1 &
+        kwybars >/dev/null 2>&1 &
+        ;;
+
+    audio)
+        start_spotify
+        stop_overlays
+        ;;
+
+    stop)
+        stop_overlays
+        ;;
+
+    *)
+        echo "Usage: music-center {lyrics|visualizer|audio|stop}"
+        exit 1
+        ;;
+esac
+

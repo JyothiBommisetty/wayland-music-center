@@ -1,0 +1,21 @@
+[overlay]
+show_on = "primary"
+layer = "top"
+position = "bottom"
+full_length = true
+height = 120
+anchor_margin = 0
+margin_left = 0
+margin_right = 0
+
+[visualizer]
+layout = "frame"
+frame_edges = ["top", "left", "right"]
+frame_mirror_mode = "all"
+bars = 50
+bar_width = 5
+gap = 8
+framerate = 60
+color_mode = "gradient"
+color_rgba = "rgba(180, 120, 255, 1.0)"
+color2_rgba = "rgba(80, 220, 255, 1.0)"
